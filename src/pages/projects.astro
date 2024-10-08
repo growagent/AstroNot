@@ -2,7 +2,7 @@
 import { getImage } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Tags from "../components/Tags.astro";
-import TagsFilter from "../components/TagsFilter.svelte";
+// import TagsFilter from "../components/TagsFilter.svelte";
 import { postImageImport } from "../helpers/images.mjs";
 import { Alert } from "flowbite-svelte";
 import { PenSolid } from "flowbite-svelte-icons";
@@ -10,30 +10,21 @@ import { PenSolid } from "flowbite-svelte-icons";
 const POSTS_PATH = "posts";
 const COVER_IMG_ASPECT_RATIO = "13/9"; // TODO: Expose as variable
 
-const { showTagsFilter = false } = Astro.props;
-
+// const { showTagsFilter = true } = Astro.props;
+// Load all posts
 const posts = await Astro.glob("./posts/*.mdx");
 
-const seenTags = {};
-const tagsList = posts.reduce((acc, post) => {
-  const postTags = post?.frontmatter?.tags;
+// Filter posts by "Article" tag directly
+const articlePosts = posts.filter(post => 
+  post?.frontmatter?.tags?.some(tag => tag.name === "Article")
+);
 
-  if (postTags) {
-    postTags.forEach((tag) => {
-      const id = tag.id;
+// Log or use the filtered article posts
+console.log(articlePosts);
 
-      if (!seenTags[id]) {
-        seenTags[id] = true;
-        acc.push(tag);
-      }
-    });
-  }
-
-  return acc;
-}, []);
 ---
 
-<Layout title="Blog">
+<Layout title="Projects">
   <main class="">
     <section class="">
       <div class="mx-auto max-w-screen-2xl px-4 py-8 lg:px-6 lg:py-16">
@@ -41,22 +32,22 @@ const tagsList = posts.reduce((acc, post) => {
           <h1
             class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white lg:text-5xl"
           >
-            Blog
+            Projects
           </h1>
           <h2
             class="font-light text-gray-500 dark:text-gray-400 max-[375px]:text-xs sm:text-xl lg:text-2xl"
           >
-            Articles, tutorials, videos, musings, and more
+            Websites, AI Agents, Design & Animation
           </h2>
         </div>
 
-        {showTagsFilter && <TagsFilter tagsList={tagsList} client:load />}
+        <!-- {showTagsFilter && <TagsFilter tagsList={tagsList} client:load />} -->
 
         <div
           class="mt-8 grid items-center gap-8 md:grid-cols-2 lg:mt-16 xl:grid-cols-3"
         >
           {
-            posts
+            articlePosts
               .sort((postA, postB) => {
                 const aDate = new Date(postA.frontmatter.publish_date);
                 const bDate = new Date(postB.frontmatter.publish_date);
@@ -189,10 +180,10 @@ const tagsList = posts.reduce((acc, post) => {
                           <img
                             class="h-11 w-11 rounded-full"
                             src="/images/portrait.webp"
-                            alt="Buzz's avatar"
+                            alt="Greggs Avatar"
                           />
                           <div class="font-medium dark:text-white">
-                            <div>Fizzbuzz Aldrin</div>
+                            <div>Gregg Coppen</div>
                             <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
                               <span
                                 class={

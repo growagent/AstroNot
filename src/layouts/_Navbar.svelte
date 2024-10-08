@@ -19,7 +19,7 @@
   let activeUrl: string = "";
   let innerWidth: number;
 
-  const name = "AstroNot"; // TODO: Make this a param, site config
+  const name = "Gregg Coppen"; // TODO: Make this a param, site config
 
   $: isHamburgerMenu = innerWidth < HAMBURGER_BREAKPOINT;
 
@@ -86,16 +86,15 @@
       <div class="flex">
         <NavUl
           {activeUrl}
-          activeClass="text-white bg-primary-200 md:bg-transparent text-[16px] font-extrabold hover:scale-105"
-          nonActiveClass="md:text-secondary-200 text-[16px] font-bold hover:scale-105"
+          activeClass="text-white bg-primary-200 md:bg-transparent text-[14px] font-bold hover:scale-105"
+          nonActiveClass="md:text-secondary-200 text-[14px] hover:scale-105"
         >
           <NavLi href="/">Home</NavLi>
+          <NavLi href="/about">About</NavLi>
+          <NavLi href="/projects">Projects</NavLi>
           <NavLi href="/blog">Blog</NavLi>
-
           <NavLi href="/contact">Contact</NavLi>
-          <NavLi href="https://github.com/jsonmartin/AstroNot" target="_blank"
-            >Github</NavLi
-          >
+
         </NavUl>
         <DarkMode btnClass="ml-4 text-white" size="lg" />
       </div>
@@ -106,8 +105,8 @@
       </div>
       <NavUl
         {activeUrl}
-        activeClass="text-white bg-primary-200 md:bg-transparent text-[16px] font-extrabold hover:scale-105"
-        nonActiveClass="md:text-secondary-200 text-[16px] font-bold hover:scale-105"
+        activeClass="text-white bg-primary-200 md:bg-transparent text-[14px] font-bold hover:scale-105"
+        nonActiveClass="md:text-secondary-200 text-[14px] hover:scale-105"
       >
         <NavLi href="/">Home</NavLi>
         <NavLi class="cursor-pointer" href="/blog">Blog</NavLi>
